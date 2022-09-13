@@ -1,14 +1,15 @@
-import axios from "axios";
-import { GetStaticPaths, GetStaticProps } from "next";
-import Image from "next/future/image";
-import { useState } from "react";
-import Stripe from "stripe";
-import { stripe } from "../../lib/stripe";
+import axios from 'axios';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import Image from 'next/future/image';
+import Head from 'next/head';
+import { useState } from 'react';
+import Stripe from 'stripe';
+import { stripe } from '../../lib/stripe';
 import {
   ImageContainer,
   ProductContainer,
   ProductDetails,
-} from "../../styles/pages/product";
+} from '../../styles/pages/product';
 
 interface ProductData {
   id: string;
@@ -29,7 +30,7 @@ export default function Product({ product }: ProductProps) {
   async function handleBuyProduct() {
     try {
       setIsRedirecting(true);
-      const response = await axios.post("/api/checkout", {
+      const response = await axios.post('/api/checkout', {
         priceId: product.defaultPriceId,
       });
 
@@ -38,33 +39,39 @@ export default function Product({ product }: ProductProps) {
       window.location.href = checkoutUrl;
     } catch (error) {
       setIsRedirecting(false);
-      console.log("er", error);
+      console.log('er', error);
     }
   }
 
   return (
-    <ProductContainer>
-      <ImageContainer>
-        <Image src={product.imageUrl} alt="" width={520} height={480} />
-      </ImageContainer>
-      <ProductDetails>
-        <h1>{product.name}</h1>
-        <span>{product.price}</span>
+    <>
+      <Head>
+        <title>{product.name} | Ignite Shop</title>
+      </Head>
 
-        <p>{product.description}</p>
+      <ProductContainer>
+        <ImageContainer>
+          <Image src={product.imageUrl} alt="" width={520} height={480} />
+        </ImageContainer>
+        <ProductDetails>
+          <h1>{product.name}</h1>
+          <span>{product.price}</span>
 
-        <button disabled={isRedirecting} onClick={handleBuyProduct}>
-          Comprar agora
-        </button>
-      </ProductDetails>
-    </ProductContainer>
+          <p>{product.description}</p>
+
+          <button disabled={isRedirecting} onClick={handleBuyProduct}>
+            Comprar agora
+          </button>
+        </ProductDetails>
+      </ProductContainer>
+    </>
   );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
-    fallback: "blocking",
+    fallback: 'blocking',
   };
 };
 
@@ -73,7 +80,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
 }) => {
   const { id } = params;
   const product = await stripe.products.retrieve(id, {
-    expand: ["default_price"],
+    expand: ['default_price'],
   });
 
   const price = product.default_price as Stripe.Price;
@@ -83,9 +90,9 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         id: product.id,
         name: product.name,
         imageUrl: product.images[0],
-        price: new Intl.NumberFormat("pt-BR", {
-          style: "currency",
-          currency: "BRL",
+        price: new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
         }).format(price.unit_amount / 100),
         description: product.description,
         defaultPriceId: price.id,
