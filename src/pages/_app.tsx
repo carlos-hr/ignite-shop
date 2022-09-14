@@ -11,6 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <Container>
       <Header>
         <Image src={logoImg} alt="" />
+        icon carrinho
       </Header>
       <Component {...pageProps} />
     </Container>
