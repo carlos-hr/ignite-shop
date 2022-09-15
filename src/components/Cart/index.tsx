@@ -2,7 +2,7 @@ import cart from '../../assets//cart.svg';
 import Image from 'next/future/image';
 import { useCart } from '../../hooks/useCart';
 import * as Dialog from '@radix-ui/react-dialog';
-import { CartModal } from './styles';
+import { CartModal, Content } from './styles';
 
 export function Cart() {
   return (
@@ -12,10 +12,10 @@ export function Cart() {
 
         <CartModal>
           <Dialog.Portal>
-            <Dialog.Content>
+            <Content>
               <Dialog.Title>Sacola de compras</Dialog.Title>
               <Dialog.Close>X</Dialog.Close>
-            </Dialog.Content>
+            </Content>
           </Dialog.Portal>
         </CartModal>
       </Dialog.Trigger>
