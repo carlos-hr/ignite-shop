@@ -43,6 +43,7 @@ export default function Product({ product }: ProductProps) {
     }
   }
 
+  console.log(product.imageUrl);
   return (
     <>
       <Head>
@@ -60,7 +61,7 @@ export default function Product({ product }: ProductProps) {
           <p>{product.description}</p>
 
           <button disabled={isRedirecting} onClick={handleBuyProduct}>
-            Comprar agora
+            Colocar na sacola
           </button>
         </ProductDetails>
       </ProductContainer>
