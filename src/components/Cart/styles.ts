@@ -1,11 +1,6 @@
 import { styled } from '../../styles';
 import * as Dialog from '@radix-ui/react-dialog';
 
-export const CartModal = styled('div', {
-  backgroundColor: 'blue',
-  height: '100vh',
-});
-
 export const Content = styled(Dialog.Content, {
   position: 'fixed',
   right: 0,
@@ -27,6 +22,7 @@ export const Content = styled(Dialog.Content, {
     border: 0,
     padding: '1.25rem',
     color: '$gray300',
+    cursor: 'pointer',
   },
 });
 
@@ -115,9 +111,8 @@ export const CartDetails = styled('div', {
     fontWeight: 'bold',
     fontSize: '$md',
 
-    '&:disabled': {
-      opacity: 0.6,
-      cursor: 'not-allowed',
+    '&:not(:disabled):hover': {
+      backgroundColor: '$green300',
     },
   },
 });
