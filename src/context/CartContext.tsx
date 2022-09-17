@@ -28,11 +28,9 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   }
 
   function removeCartItem(id: string) {
-    console.log('aqui');
     dispatch(removeCartItemAction(id));
   }
 
-  console.log(cartState);
   return (
     <CartContext.Provider value={{ addCartItem, cartState, removeCartItem }}>
       {children}

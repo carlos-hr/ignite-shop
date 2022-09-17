@@ -62,7 +62,7 @@ export function Cart() {
               <p>RS 270,00</p>
             </span>
 
-            <button onClick={() => console.log('opa')}>Finalizar compra</button>
+            <button>Finalizar compra</button>
           </CartDetails>
         </Content>
       </Dialog.Portal>
