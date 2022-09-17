@@ -32,7 +32,12 @@ export function Cart() {
               </ImageContainer>
               <ProductDetails>
                 <h2>Camiseta Beyond the Limits</h2>
-                <span>R$79,90</span>
+                <span>
+                  R$79,90
+                  <p>
+                    <button>-</button> 2 un <button>+</button>
+                  </p>
+                </span>
                 <button>Remover</button>
               </ProductDetails>
             </CartItem>

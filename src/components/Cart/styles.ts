@@ -60,6 +60,28 @@ export const ProductDetails = styled('div', {
     fontSize: '$md',
     color: '$white',
     fontWeight: 'bold',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+
+    p: {
+      fontWeight: 'normal',
+      fontSize: '1rem',
+
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '5rem',
+
+      button: {
+        fontSize: '$lg',
+
+        '&:hover': {
+          textDecoration: 'none',
+          color: '$green500',
+        },
+      },
+    },
   },
 
   button: {
