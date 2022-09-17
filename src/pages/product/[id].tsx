@@ -4,6 +4,7 @@ import Image from 'next/future/image';
 import Head from 'next/head';
 import { useState } from 'react';
 import Stripe from 'stripe';
+import { useCart } from '../../hooks/useCart';
 import { stripe } from '../../lib/stripe';
 import {
   ImageContainer,
@@ -26,6 +27,7 @@ interface ProductProps {
 
 export default function Product({ product }: ProductProps) {
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const { addCartItem } = useCart();
 
   async function handleBuyProduct() {
     try {
@@ -43,7 +45,6 @@ export default function Product({ product }: ProductProps) {
     }
   }
 
-  console.log(product.imageUrl);
   return (
     <>
       <Head>
@@ -60,7 +61,10 @@ export default function Product({ product }: ProductProps) {
 
           <p>{product.description}</p>
 
-          <button disabled={isRedirecting} onClick={handleBuyProduct}>
+          <button
+            disabled={isRedirecting}
+            onClick={() => addCartItem(product.id)}
+          >
             Colocar na sacola
           </button>
         </ProductDetails>
