@@ -8,8 +8,11 @@ import {
   ImageContainer,
   ProductDetails,
 } from './styles';
+import { useCart } from '../../hooks/useCart';
 
 export function Cart() {
+  const { addCartItem, removeCartItem } = useCart();
+
   return (
     <Dialog.Root>
       <Dialog.Trigger>
@@ -35,7 +38,12 @@ export function Cart() {
                 <span>
                   R$79,90
                   <p>
-                    <button>-</button> 2 un <button>+</button>
+                    <button
+                      onClick={() => removeCartItem('prod_MQ7NaefPljw2C7')}
+                    >
+                      -
+                    </button>{' '}
+                    2 un <button>+</button>
                   </p>
                 </span>
                 <button>Remover</button>
@@ -54,7 +62,7 @@ export function Cart() {
               <p>RS 270,00</p>
             </span>
 
-            <button onClick={() => console.log('opa')}>Finalizar compra</button>
+            <button>Finalizar compra</button>
           </CartDetails>
         </Content>
       </Dialog.Portal>
