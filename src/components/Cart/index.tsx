@@ -11,8 +11,6 @@ import {
 import { useCart } from '../../hooks/useCart';
 
 export function Cart() {
-  const { addCartItem, removeCartItem } = useCart();
-
   return (
     <Dialog.Root>
       <Dialog.Trigger>
@@ -35,17 +33,7 @@ export function Cart() {
               </ImageContainer>
               <ProductDetails>
                 <h2>Camiseta Beyond the Limits</h2>
-                <span>
-                  R$79,90
-                  <p>
-                    <button
-                      onClick={() => removeCartItem('prod_MQ7NaefPljw2C7')}
-                    >
-                      -
-                    </button>{' '}
-                    2 un <button>+</button>
-                  </p>
-                </span>
+                <span>R$79,90</span>
                 <button>Remover</button>
               </ProductDetails>
             </CartItem>

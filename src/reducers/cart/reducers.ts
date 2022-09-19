@@ -15,15 +15,12 @@ export function cartReducers(state: CartState, action: ActionType) {
         if (productInCartIndex === -1) {
           draft.cart.push({
             id,
-            quantity: 1,
           });
 
           return;
-        } else {
-          draft.cart[productInCartIndex].quantity++;
-
-          return;
         }
+
+        return state;
       }
 
       case CartActionTypes.removeCartItem: {
@@ -36,13 +33,8 @@ export function cartReducers(state: CartState, action: ActionType) {
         );
 
         if (productInCartIndex >= 0) {
-          if (draft.cart[productInCartIndex].quantity === 1) {
-            draft.cart = state.cart.filter((cartItem) => cartItem.id !== id);
-            return;
-          } else {
-            draft.cart[productInCartIndex].quantity--;
-            return;
-          }
+          draft.cart = state.cart.filter((cartItem) => cartItem.id !== id);
+          return;
         }
 
         return state;
