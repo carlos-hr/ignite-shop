@@ -11,16 +11,15 @@ export default async function handler(
 
   const { ids } = req.body;
 
-  if (!ids) {
+  if (ids.length === 0) {
     return res.status(400).json({ error: 'You must send an array of ids.' });
   }
 
   const response = await stripe.products.list({
     ids,
+    expand: ['data.default_price'],
   });
 
   const cartItems = response.data;
-  return res.status(200).json({
-    cartItems,
-  });
+  return res.status(200).json(cartItems);
 }

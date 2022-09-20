@@ -1,38 +1,46 @@
-import { createContext, ReactNode, useReducer } from 'react';
-import { CartState } from '../@types/cart';
-import {
-  addCartItemAction,
-  removeCartItemAction,
-} from '../reducers/cart/actions';
-import { cartReducers } from '../reducers/cart/reducers';
+import { createContext, ReactNode, useState } from 'react';
 
 interface CartContextProviderProps {
   children: ReactNode;
 }
 
 interface CartContextData {
-  cartState: CartState;
-  addCartItem: (id: string) => void;
-  removeCartItem: (id: string) => void;
+  cartItemIds: string[];
+  addProductToCart: (id: string) => void;
+  removeProductFromCart: (id: string) => void;
 }
 
 export const CartContext = createContext({} as CartContextData);
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [cartState, dispatch] = useReducer(cartReducers, {
-    cart: [],
-  });
+  const [cartItemIds, setCartItemIds] = useState([]);
 
-  function addCartItem(id: string) {
-    dispatch(addCartItemAction(id));
+  function addProductToCart(id: string) {
+    const cartItemIndex = cartItemIds.findIndex(
+      (productId) => productId === id
+    );
+
+    if (cartItemIndex === -1) {
+      setCartItemIds((state) => [...state, id]);
+    }
   }
 
-  function removeCartItem(id: string) {
-    dispatch(removeCartItemAction(id));
+  function removeProductFromCart(id: string) {
+    const cartItemIndex = cartItemIds.findIndex(
+      (productId) => productId === id
+    );
+
+    if (cartItemIndex >= 0) {
+      const newCart = cartItemIds.filter((productId) => productId !== id);
+      setCartItemIds(newCart);
+    }
+    return;
   }
 
   return (
-    <CartContext.Provider value={{ addCartItem, cartState, removeCartItem }}>
+    <CartContext.Provider
+      value={{ addProductToCart, cartItemIds, removeProductFromCart }}
+    >
       {children}
     </CartContext.Provider>
   );
