@@ -31,6 +31,7 @@ export const Product = styled('a', {
 
     borderRadius: 6,
     display: 'flex',
+    gap: '0.5rem',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
@@ -48,6 +49,20 @@ export const Product = styled('a', {
       fontSize: '$xl',
       fontWeigth: 'bold',
       color: '$green300',
+    },
+
+    button: {
+      border: 0,
+      borderRadius: 6,
+      width: '3.5rem',
+      height: '3.5rem',
+      backgroundColor: '$green500',
+      cursor: 'pointer',
+      transition: 'all 0.2s',
+
+      '&:hover': {
+        backgroundColor: '$green300',
+      },
     },
   },
 

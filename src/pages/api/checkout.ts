@@ -9,9 +9,9 @@ export default async function handler(
     return res.status(405).json({ error: 'Method not allowed.' });
   }
 
-  const { priceId } = req.body;
+  const { priceIds } = req.body;
 
-  if (!priceId) {
+  if (!priceIds) {
     return res.status(400).json({ error: 'Price not found.' });
   }
 
@@ -19,12 +19,7 @@ export default async function handler(
     cancel_url: `${process.env.NEXT_URL}/`,
     success_url: `${process.env.NEXT_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
     mode: 'payment',
-    line_items: [
-      {
-        price: priceId,
-        quantity: 1,
-      },
-    ],
+    line_items: priceIds,
   });
 
   return res.status(201).json({

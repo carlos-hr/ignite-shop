@@ -1,8 +1,6 @@
-import axios from 'axios';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/future/image';
 import Head from 'next/head';
-import { useState } from 'react';
 import Stripe from 'stripe';
 import { useCart } from '../../hooks/useCart';
 import { stripe } from '../../lib/stripe';
@@ -26,24 +24,7 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
-  const [isRedirecting, setIsRedirecting] = useState(false);
   const { addProductToCart } = useCart();
-
-  async function handleBuyProduct() {
-    try {
-      setIsRedirecting(true);
-      const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId,
-      });
-
-      const { checkoutUrl } = response.data;
-
-      window.location.href = checkoutUrl;
-    } catch (error) {
-      setIsRedirecting(false);
-      console.log('er', error);
-    }
-  }
 
   return (
     <>
@@ -61,10 +42,7 @@ export default function Product({ product }: ProductProps) {
 
           <p>{product.description}</p>
 
-          <button
-            disabled={isRedirecting}
-            onClick={() => addProductToCart(product.id)}
-          >
+          <button onClick={() => addProductToCart(product.id)}>
             Colocar na sacola
           </button>
         </ProductDetails>
