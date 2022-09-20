@@ -27,7 +27,7 @@ interface ProductProps {
 
 export default function Product({ product }: ProductProps) {
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const { addCartItem } = useCart();
+  const { addProductToCart } = useCart();
 
   async function handleBuyProduct() {
     try {
@@ -63,7 +63,7 @@ export default function Product({ product }: ProductProps) {
 
           <button
             disabled={isRedirecting}
-            onClick={() => addCartItem(product.id)}
+            onClick={() => addProductToCart(product.id)}
           >
             Colocar na sacola
           </button>
