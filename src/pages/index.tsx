@@ -8,6 +8,8 @@ import { GetStaticProps } from 'next';
 import Stripe from 'stripe';
 import Link from 'next/link';
 import Head from 'next/head';
+import cart from '../assets/footer-cart.svg';
+import { useCart } from '../hooks/useCart';
 
 interface ProductData {
   id: string;
@@ -21,6 +23,7 @@ interface HomeProps {
 }
 
 export default function Home({ products }: HomeProps) {
+  const { addProductToCart } = useCart();
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 2.6,
@@ -36,12 +39,8 @@ export default function Home({ products }: HomeProps) {
 
       <HomeContainer ref={sliderRef} className="keen-slider">
         {products.map((product) => (
-          <Link
-            key={product.id}
-            href={`/product/${product.id}`}
-            prefetch={false}
-          >
-            <Product className="keen-slider__slide">
+          <Product className="keen-slider__slide" key={product.id}>
+            <Link href={`/product/${product.id}`} prefetch={false}>
               <Image
                 src={product.imageUrl}
                 width={520}
@@ -49,12 +48,15 @@ export default function Home({ products }: HomeProps) {
                 alt=""
                 priority
               />
-              <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
-              </footer>
-            </Product>
-          </Link>
+            </Link>
+            <footer>
+              <strong>{product.name}</strong>
+              <span>{product.price}</span>
+              <button onClick={() => addProductToCart(product.id)}>
+                <Image src={cart} alt="cart-icon" />
+              </button>
+            </footer>
+          </Product>
         ))}
       </HomeContainer>
     </>

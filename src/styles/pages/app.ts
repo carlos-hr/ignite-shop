@@ -16,6 +16,10 @@ export const Header = styled('header', {
   display: 'flex',
   justifyContent: 'space-between',
 
+  '.Toastify__toast': {
+    backgroundColor: '$gray800',
+  },
+
   a: {
     cursor: 'pointer',
   },

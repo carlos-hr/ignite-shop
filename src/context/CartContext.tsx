@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useState } from 'react';
+import { toast } from 'react-toastify';
 
 interface CartContextProviderProps {
   children: ReactNode;
@@ -22,7 +23,16 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
     if (cartItemIndex === -1) {
       setCartItemIds((state) => [...state, id]);
+      toast.success('Produto adicionado ao carrinho!', {
+        theme: 'dark',
+      });
+
+      return;
     }
+
+    toast.error('O produto já está no carrinho! ', {
+      theme: 'dark',
+    });
   }
 
   function removeProductFromCart(id: string) {

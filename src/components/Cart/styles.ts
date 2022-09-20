@@ -95,6 +95,11 @@ export const ProductDetails = styled('div', {
     '&:hover': {
       textDecoration: 'underline',
     },
+
+    '&:disabled': {
+      opacity: 0.6,
+      cursor: 'not-allowed',
+    },
   },
 });
 
